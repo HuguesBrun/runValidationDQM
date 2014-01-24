@@ -21,6 +21,8 @@ process.load('Configuration.StandardSequences.Validation_cff')
 process.load('DQMOffline.Configuration.DQMOfflineMC_cff')
 process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+process.load("DQMServices.Components.DQMStoreStats_cfi")
+
 
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -85,9 +87,11 @@ process.validation_step = cms.EndPath(process.validation)
 process.endjob_step = cms.EndPath(process.endOfProcess)
 process.FEVTDEBUGHLToutput_step = cms.EndPath(process.FEVTDEBUGHLToutput)
 process.DQMoutput_step = cms.EndPath(process.DQMoutput)
+process.storestats_step = cms.Path( process.dqmStoreStats )
+
 
 # Schedule definition
-process.schedule = cms.Schedule(process.raw2digi_step,process.reconstruction_step,process.prevalidation_step,process.validation_step,process.dqmoffline_step,process.endjob_step,process.FEVTDEBUGHLToutput_step,process.DQMoutput_step)
+process.schedule = cms.Schedule(process.raw2digi_step,process.reconstruction_step,process.prevalidation_step,process.validation_step,process.storestats_step,process.dqmoffline_step,process.endjob_step,process.FEVTDEBUGHLToutput_step,process.DQMoutput_step)
 
 # customisation of the process.
 
